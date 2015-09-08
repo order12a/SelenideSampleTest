@@ -1,0 +1,40 @@
+{
+  "uid" : "765e8d19860fcadb",
+  "name" : "startTest",
+  "title" : "Start test",
+  "time" : {
+    "start" : 1440169680424,
+    "stop" : 1440169692315,
+    "duration" : 11891
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 0
+  },
+  "failure" : null,
+  "description" : null,
+  "severity" : "NORMAL",
+  "status" : "PASSED",
+  "steps" : [ ],
+  "attachments" : [ ],
+  "labels" : [ {
+    "name" : "host",
+    "value" : "QA_DPH-ПК"
+  }, {
+    "name" : "thread",
+    "value" : "3172@QA_DPH-ПК.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "JUnit"
+  }, {
+    "name" : "language",
+    "value" : "JAVA"
+  }, {
+    "name" : "feature",
+    "value" : "Without feature"
+  }, {
+    "name" : "story",
+    "value" : "Without story"
+  } ],
+  "parameters" : [ ]
+}

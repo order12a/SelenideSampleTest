@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1440169680395" stop="1440169692461" version="1.4.16" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>DP_Test</name>
+    <test-cases>
+        <test-case start="1440169680424" stop="1440169692315" status="passed">
+            <name>startTest</name>
+            <steps/>
+            <attachments/>
+            <labels>
+                <label name="host" value="QA_DPH-ПК"/>
+                <label name="thread" value="3172@QA_DPH-ПК.main(1)"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="framework" value="JUnit"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>

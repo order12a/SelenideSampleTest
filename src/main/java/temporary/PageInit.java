@@ -1,8 +1,7 @@
-package temporary.init;
+package temporary;
 
 import com.codeborne.selenide.WebDriverRunner;
 import dp.pages.AnyPage;
-
 
 public class PageInit {
     public AnyPage anyPage;

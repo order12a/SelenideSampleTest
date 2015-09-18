@@ -43,6 +43,18 @@ public class DP_Test {
         System.out.println("\n" + $(By.xpath(".//input[@id='d_search4']")).getAttribute("value").toUpperCase() + "\n");
     }
 
+    @Test
+    public void loginTest(){
+        open(URL);
+        pageInit.mainPageLoggedOut.clickLoginButton();
+        pageInit.loginTip.login("usefOne", "1");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @After
     public void disable(){
         try {
@@ -62,7 +74,7 @@ public class DP_Test {
                 System.out.println("After class try - " + WebDriverRunner.hasWebDriverStarted());
                 WebDriverRunner.getWebDriver().quit();
             }catch (Exception e){
-                killAllProcesses("chrome");
+//                killAllProcesses("chrome");
             }
             System.out.println("After class catch - " + WebDriverRunner.hasWebDriverStarted());
             }

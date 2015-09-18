@@ -1,7 +1,9 @@
 package dp.pages;
 
-/**
- * Created by order on 18.09.15.
- */
-public class LoginPageStatic extends Page{
+import org.openqa.selenium.WebDriver;
+
+public class LoginPageStatic extends AnyPage{
+    public LoginPageStatic(WebDriver driver) {
+        super(driver);
+    }
 }

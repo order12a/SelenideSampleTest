@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import temporary.init.PageInit;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -11,7 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class DP_Test {
     final String KEY = "run";
-    final String URL = "http://depositphotos.net";
+    final String URL = "http://depositphotos.com";
+    public PageInit pageInit;
 
     @BeforeClass
     public static void setUp(){
@@ -29,6 +31,7 @@ public class DP_Test {
 
         WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
 //        WebDriverRunner.setWebDriver(new FirefoxDriver());
+        pageInit = new PageInit();
     }
 
     @Test

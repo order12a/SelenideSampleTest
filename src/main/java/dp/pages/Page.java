@@ -1,6 +1,8 @@
 package dp.pages;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +16,7 @@ public abstract class Page {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    private static Logger LOG = Logger.getLogger(Page.class);
+    private static Logger LOG = LogManager.getLogger(Page.class);
 
     public Page(WebDriver driver){
         this.driver = driver;

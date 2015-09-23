@@ -1,4 +1,6 @@
 import com.codeborne.selenide.WebDriverRunner;
+import dp.logic.ApplicationManagerInterface;
+import logic.ready.ApplicationManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
@@ -21,11 +23,12 @@ public class TestBase {
     public PageInit pageInit = new PageInit();
     private static Logger LOG = LogManager.getLogger(TestBase.class);
 //    final String LOG_FILE = "/main/java/resources/log4j.properties";
+    public static ApplicationManagerInterface app;
 
     @BeforeClass
     public static void setUp(){
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities;
         capabilities = DesiredCapabilities.chrome();
 
         ChromeOptions options = new ChromeOptions();
@@ -33,7 +36,9 @@ public class TestBase {
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
         WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
+        app = new ApplicationManager();
 //      WebDriverRunner.setWebDriver(new FirefoxDriver());
+
     }
 
 

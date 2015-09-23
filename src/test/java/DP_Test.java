@@ -4,6 +4,7 @@ import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import static org.hamcrest.Matchers.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,28 +17,13 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(DataProviderRunner.class)
 public class DP_Test extends TestDataClass{
-//    final String KEY = "run";
-//    final String URL = "http://depositphotos.com";
-//    public PageInit pageInit;
-
-//    @BeforeClass
-//    public static void setUp(){
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities = DesiredCapabilities.chrome();
-//
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("window-size=1400,1200");
-//        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-//
-//        WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
-//      WebDriverRunner.setWebDriver(new FirefoxDriver());
-//    }
 
     @Before
     public void before(){
-//        pageInit = new PageInit();
+        app.clearCookies();
     }
 
+    @Ignore
     @Test
     public void startTest(){
         open(URL);
@@ -49,6 +35,7 @@ public class DP_Test extends TestDataClass{
         sleep(2);
     }
 
+    @Ignore
     @Test
     @UseDataProvider(value = "users", location = TestDataClass.class)
     public void loginTest(String username, String password){
@@ -58,33 +45,19 @@ public class DP_Test extends TestDataClass{
         sleep(5);
     }
 
+    @Test
+    @UseDataProvider(value = "users", location = TestDataClass.class)
+    public void loginTestWithSteps(String username, String password){
+        WebDriverRunner.getWebDriver().get(URL);
+        app.getNavigationHelper().openMainPage();
+        app.getUserHelper().login(username, password);
+        Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
+    }
+
     @After
     public void disable(){
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();
         WebDriverRunner.getWebDriver().navigate().refresh();
-//        try {
-//            System.out.println("After try - " + WebDriverRunner.hasWebDriverStarted());
-//            WebDriverRunner.closeWebDriver();
-//            killAllProcesses("firefox");
-//            System.out.println("After try - " + WebDriverRunner.hasWebDriverStarted());
-//        }catch (Exception e){
-//            System.out.println("After catch - " + WebDriverRunner.hasWebDriverStarted());
-//        }
     }
-
-
-//    @AfterClass
-//    public static void tearDown(){
-//        WebDriverRunner.closeWebDriver();
-//        if (WebDriverRunner.getWebDriver() != null){
-//            try {
-//                System.out.println("After class try - " + WebDriverRunner.hasWebDriverStarted());
-//                WebDriverRunner.getWebDriver().quit();
-//            }catch (Exception e){
-//                killAllProcesses("chrome");
-//            }
-//            System.out.println("After class catch - " + WebDriverRunner.hasWebDriverStarted());
-//            }
-//    }
 
 }

@@ -3,10 +3,16 @@ import dp.logic.ApplicationManagerInterface;
 import logic.ready.ApplicationManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import ru.yandex.qatools.allure.annotations.Attachment;
 import temporary.PageInit;
 
 import org.apache.logging.log4j.Level;
@@ -40,6 +46,20 @@ public class TestBase {
 //      WebDriverRunner.setWebDriver(new FirefoxDriver());
 
     }
+
+    @Rule
+    public TestWatcher screenshotOnFailure = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            app.getCurrentUrl();
+            makeScreenshotOnFailure();
+        }
+
+        @Attachment("Screenshot on failure")
+        public byte[] makeScreenshotOnFailure() {
+            return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        }
+    };
 
 
     @AfterClass

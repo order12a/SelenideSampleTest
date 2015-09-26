@@ -6,6 +6,9 @@ public interface ApplicationManagerInterface {
     void directLogin(String user, String backUrl);
     void directLogout(String baseURL);
     boolean isProd();
+    void getCurrentUrl();
     NavigationHelperInterface getNavigationHelper();
     UserHelperInterface getUserHelper();
+    SearchHelperInterface getSearchHelper();
+
 }

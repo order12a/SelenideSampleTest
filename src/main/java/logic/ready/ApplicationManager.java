@@ -4,6 +4,7 @@ package logic.ready;
 import com.codeborne.selenide.WebDriverRunner;
 import dp.logic.ApplicationManagerInterface;
 import dp.logic.NavigationHelperInterface;
+import dp.logic.SearchHelperInterface;
 import dp.logic.UserHelperInterface;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -14,17 +15,20 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationManager extends LogHelper implements ApplicationManagerInterface{
+
     private String baseUrl;
     private String adminUrl;
     private String apiUrl;
     private UserHelperInterface userHelperInterface;
     private NavigationHelperInterface navigationHelperInterface;
+    private SearchHelperInterface searchHelperInterface;
 
     public ApplicationManager() {
 //        adminUrl = "http://admin." + baseUrl.replace("http://", "");
 //        apiUrl = "http://api." + baseUrl.replace("http://", "");
         userHelperInterface = new UserHelper(this);
         navigationHelperInterface = new NavigationHelper(this);
+        searchHelperInterface = new SearchHelper(this);
     }
 
     public void clearCookies() {
@@ -67,8 +71,16 @@ public class ApplicationManager extends LogHelper implements ApplicationManagerI
         return userHelperInterface;
     }
 
+    public SearchHelperInterface getSearchHelper() {
+        return searchHelperInterface;
+    }
+
     public WebDriver getWebdriver(){
         return WebDriverRunner.getWebDriver();
     }
 
+    public void getCurrentUrl() {
+        String currentUrl = getWebdriver().getCurrentUrl();
+        logMe(currentUrl);
+    }
 }

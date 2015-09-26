@@ -1,10 +1,7 @@
 package temporary;
 
 import com.codeborne.selenide.WebDriverRunner;
-import dp.pages.AnyPage;
-import dp.pages.LoginTip;
-import dp.pages.MainPageLoggedIn;
-import dp.pages.MainPageLoggedOut;
+import dp.pages.*;
 import org.openqa.selenium.WebDriver;
 
 public class PageInit {
@@ -12,6 +9,8 @@ public class PageInit {
     public MainPageLoggedOut mainPageLoggedOut;
     public LoginTip loginTip;
     public MainPageLoggedIn mainPageLoggedIn;
+    public SearchPage searchPage;
+    public LoginPageStatic loginPageStatic;
 
     public PageInit(){
         anyPage = new AnyPage(WebDriverRunner.getWebDriver());
@@ -25,5 +24,7 @@ public class PageInit {
         mainPageLoggedOut = new MainPageLoggedOut(driver);
         loginTip = new LoginTip(driver);
         mainPageLoggedIn = new MainPageLoggedIn(driver);
+        searchPage = new SearchPage(driver);
+        loginPageStatic = new LoginPageStatic(driver);
     }
 }

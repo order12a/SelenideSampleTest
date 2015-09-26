@@ -18,4 +18,10 @@ public class UserHelper extends DriverBasedHelper implements UserHelperInterface
     public boolean isLoggedIn(String username) {
         return pages.mainPageLoggedIn.isLoggedIn(username);
     }
+
+    @Override
+    public void loginStatic(String username, String password) {
+        pages.loginPageStatic.ensurePageLoaded();
+        pages.loginPageStatic.login(username, password);
+    }
 }

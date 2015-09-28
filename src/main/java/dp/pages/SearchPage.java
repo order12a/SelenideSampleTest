@@ -2,8 +2,10 @@ package dp.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import dp.pages.components.LeftSearchPanelMinimized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
@@ -18,9 +20,12 @@ public class SearchPage extends AnyPage{
     List<SelenideElement> searchResultHolders = $$(".item-image>img");
     SelenideElement addToCartIcon = $(By.xpath("//span[@class='item-action']/span[@class='shopping-cart-button']"));
     SelenideElement cartCounter = $(".shopping-cart-counter.counter-label");
+    SelenideElement clearCompactMenuFiltersLink = $(By.xpath("//div[@class='control-item clear-text-label active']/a"));
+    LeftSearchPanelMinimized leftPanel;
 
     public SearchPage(WebDriver driver) {
         super(driver);
+        leftPanel = new LeftSearchPanelMinimized(driver);
     }
 
     public boolean ensurePageLoaded(){
@@ -63,5 +68,14 @@ public class SearchPage extends AnyPage{
 
     public boolean isCartIndexIncreased(){
         return cartCounter.getAttribute("data-value").length() > 0;
+    }
+
+    public void enableMaxResultFilterAtSmallPanel() {
+        leftPanel.getAccuracyIconSmall().click();
+//        leftPanel.getSliderPoint().click();
+        int sliderWidth = leftPanel.getSliderLine().toWebElement().getSize().getWidth();
+        Actions moveSlider = new Actions(driver).moveToElement(leftPanel.getSliderPoint()).clickAndHold(leftPanel.getSliderPoint()).moveByOffset(80, 0).release();
+        moveSlider.build().perform();
+        waitForAjaxResponse(15);
     }
 }

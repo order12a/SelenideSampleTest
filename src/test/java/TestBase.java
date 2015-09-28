@@ -1,4 +1,7 @@
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.impl.ScreenShotLaboratory;
+import com.codeborne.selenide.junit.ScreenShooter;
 import dp.logic.ApplicationManagerInterface;
 import logic.ready.ApplicationManager;
 import org.junit.AfterClass;
@@ -8,31 +11,26 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import ru.yandex.qatools.allure.annotations.Attachment;
-import temporary.PageInit;
+import dp.pages.PageManager;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 public class TestBase {
     final String KEY = "run";
     final String URL = "http://depositphotos.com";
-    public PageInit pageInit = new PageInit();
+    public PageManager pageManager = new PageManager();
     private static Logger LOG = LogManager.getLogger(TestBase.class);
 //    final String LOG_FILE = "/main/java/resources/log4j.properties";
     public static ApplicationManagerInterface app;
 
     @BeforeClass
     public static void setUp(){
+        System.setProperty("selenide.screenshots", "false");
 
         DesiredCapabilities capabilities;
         capabilities = DesiredCapabilities.chrome();
@@ -47,19 +45,20 @@ public class TestBase {
 
     }
 
-    @Rule
-    public TestWatcher screenshotOnFailure = new TestWatcher() {
-        @Override
-        protected void failed(Throwable e, Description description) {
-            app.getCurrentUrl();
-            makeScreenshotOnFailure();
-        }
+//    @Rule
+//    public TestWatcher screenshotOnFailure = new TestWatcher() {
+//        @Override
+//        protected void failed(Throwable e, Description description) {
+//            app.getCurrentUrl();
+////            makeScreenshotOnFailure();
+//        }
+//
+//        @Attachment("Screenshot on failure")
+//        public byte[] makeScreenshotOnFailure() {
+//            return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+//        }
+//    };
 
-        @Attachment("Screenshot on failure")
-        public byte[] makeScreenshotOnFailure() {
-            return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-        }
-    };
 
 
     @AfterClass

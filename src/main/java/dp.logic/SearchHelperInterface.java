@@ -6,4 +6,6 @@ public interface SearchHelperInterface {
     boolean isSearchResultDisplayed();
     void openItemFromSearchResult(int index);
     void addItemsToCart(int[] index);
+
+    void filterResultsByMaxAccuracy();
 }

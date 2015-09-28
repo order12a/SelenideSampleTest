@@ -1,10 +1,10 @@
-package temporary;
+package dp.pages;
 
 import com.codeborne.selenide.WebDriverRunner;
 import dp.pages.*;
 import org.openqa.selenium.WebDriver;
 
-public class PageInit {
+public class PageManager {
     public AnyPage anyPage;
     public MainPageLoggedOut mainPageLoggedOut;
     public LoginTip loginTip;
@@ -12,14 +12,14 @@ public class PageInit {
     public SearchPage searchPage;
     public LoginPageStatic loginPageStatic;
 
-    public PageInit(){
+    public PageManager(){
         anyPage = new AnyPage(WebDriverRunner.getWebDriver());
         mainPageLoggedOut = new MainPageLoggedOut(WebDriverRunner.getWebDriver());
         loginTip = new LoginTip(WebDriverRunner.getWebDriver());
         mainPageLoggedIn = new MainPageLoggedIn(WebDriverRunner.getWebDriver());
     }
 
-    public PageInit(WebDriver driver){
+    public PageManager(WebDriver driver){
         anyPage = new AnyPage(driver);
         mainPageLoggedOut = new MainPageLoggedOut(driver);
         loginTip = new LoginTip(driver);

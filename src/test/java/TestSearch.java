@@ -4,19 +4,14 @@ import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import static org.hamcrest.Matchers.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import temporary.PageInit;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(DataProviderRunner.class)
-public class DP_Test extends TestDataClass{
+public class TestSearch extends TestDataClass{
+    String searchUrl = "http://depositphotos.com/search-all/index.html";
 
     @Before
     public void before(){
@@ -40,18 +35,19 @@ public class DP_Test extends TestDataClass{
     @UseDataProvider(value = "users", location = TestDataClass.class)
     public void loginTest(String username, String password){
         WebDriverRunner.getWebDriver().get(URL);
-        pageInit.mainPageLoggedOut.clickLoginButton();
-        pageInit.loginTip.login(username, password);
+        pageManager.mainPageLoggedOut.clickLoginButton();
+        pageManager.loginTip.login(username, password);
         sleep(5);
     }
 
     @Test
-    @UseDataProvider(value = "users", location = TestDataClass.class)
-    public void loginTestWithSteps(String username, String password){
-        WebDriverRunner.getWebDriver().get(URL);
-        app.getNavigationHelper().openMainPage();
-        app.getUserHelper().login(username, password);
-        Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
+    public void testAccuracyMinimized(){
+        open(searchUrl);
+        Assert.assertEquals("Assert that search page not broken.", true, app.getSearchHelper().isSearchPageReady());
+        app.getSearchHelper().searchByKeyword("sun");
+        app.getSearchHelper().filterResultsByMaxAccuracy();
+        sleep(8);
+        Assert.assertEquals("Assert that we have search results.", true, app.getSearchHelper().isSearchResultDisplayed());
     }
 
     @After

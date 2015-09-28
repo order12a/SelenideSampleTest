@@ -3,13 +3,6 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-import static org.hamcrest.Matchers.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import temporary.PageInit;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -22,6 +15,15 @@ public class TestProfile extends TestDataClass{
     @Before
     public void before(){
         app.clearCookies();
+    }
+
+    @Test
+    @UseDataProvider(value = "users", location = TestDataClass.class)
+    public void loginTestWithSteps(String username, String password){
+        WebDriverRunner.getWebDriver().get(URL);
+        app.getNavigationHelper().openMainPage();
+        app.getUserHelper().login(username, password);
+        Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
     }
 
     @Test

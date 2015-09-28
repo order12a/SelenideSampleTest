@@ -2,18 +2,18 @@ package logic.ready;
 
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.WebDriver;
-import temporary.PageInit;
+import dp.pages.PageManager;
 import util.LogHelper;
 
 
 public class DriverBasedHelper extends LogHelper{
-    protected PageInit pages;
+    protected PageManager pages;
 
     public DriverBasedHelper(){
-        pages = new PageInit(WebDriverRunner.getWebDriver());
+        pages = new PageManager(WebDriverRunner.getWebDriver());
     }
 
     public DriverBasedHelper(WebDriver driver){
-        pages = new PageInit(driver);
+        pages = new PageManager(driver);
     }
 }

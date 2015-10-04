@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationManager extends LogHelper implements ApplicationManagerInterface{
 
-    private String baseUrl;
+    private String baseUrl = "http://depositphotos.com";
     private String adminUrl;
     private String apiUrl;
     private UserHelperInterface userHelperInterface;
@@ -42,7 +42,7 @@ public class ApplicationManager extends LogHelper implements ApplicationManagerI
             }
         }
 
-
+        open(baseUrl);
     }
 
     public void directLogin(String user) {

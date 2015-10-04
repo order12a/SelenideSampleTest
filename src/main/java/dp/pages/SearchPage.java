@@ -1,6 +1,5 @@
 package dp.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import dp.pages.components.LeftSearchPanelMinimized;
 import org.openqa.selenium.By;
@@ -20,12 +19,14 @@ public class SearchPage extends AnyPage{
     List<SelenideElement> searchResultHolders = $$(".item-image>img");
     SelenideElement addToCartIcon = $(By.xpath("//span[@class='item-action']/span[@class='shopping-cart-button']"));
     SelenideElement cartCounter = $(".shopping-cart-counter.counter-label");
-    SelenideElement clearCompactMenuFiltersLink = $(By.xpath("//div[@class='control-item clear-text-label active']/a"));
-    LeftSearchPanelMinimized leftPanel;
+    SelenideElement clearFiltersLink = $(By.xpath("//div[@class='control-item clear-text-label active']/a"));
+    SelenideElement contributorFilterIcon = $(".filter-item.contributor.active>span");
+
+    LeftSearchPanelMinimized leftPanelSmall;
 
     public SearchPage(WebDriver driver) {
         super(driver);
-        leftPanel = new LeftSearchPanelMinimized(driver);
+        leftPanelSmall = new LeftSearchPanelMinimized(driver);
     }
 
     public boolean ensurePageLoaded(){
@@ -71,11 +72,26 @@ public class SearchPage extends AnyPage{
     }
 
     public void enableMaxResultFilterAtSmallPanel() {
-        leftPanel.getAccuracyIconSmall().click();
-//        leftPanel.getSliderPoint().click();
-        int sliderWidth = leftPanel.getSliderLine().toWebElement().getSize().getWidth();
-        Actions moveSlider = new Actions(driver).moveToElement(leftPanel.getSliderPoint()).clickAndHold(leftPanel.getSliderPoint()).moveByOffset(80, 0).release();
+        leftPanelSmall.getAccuracyIconSmall().click();
+        leftPanelSmall.getSliderPoint().click();
+        int sliderWidth = leftPanelSmall.getSliderLine().toWebElement().getSize().getWidth();
+        Actions moveSlider = new Actions(driver).moveToElement(leftPanelSmall.getSliderPoint()).clickAndHold(leftPanelSmall.getSliderPoint()).moveByOffset(80, 0).release();
         moveSlider.build().perform();
         waitForAjaxResponse(15);
+    }
+
+    public void searchByContributorMinimized(String contributor) {
+        leftPanelSmall.getContributorIconSmall().click();
+        leftPanelSmall.getContributorField().val(contributor);
+        leftPanelSmall.getApplyContributorButton().click();
+    }
+
+    public boolean checkContributorFilterPresent(String contributor) {
+        return contributorFilterIcon.getText().equals(contributor);
+    }
+
+    public SearchPage clearFilters(){
+        clearFiltersLink.click();
+        return this;
     }
 }

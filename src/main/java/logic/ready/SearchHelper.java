@@ -42,4 +42,17 @@ public class SearchHelper extends DriverBasedHelper implements SearchHelperInter
         pages.searchPage.enableMaxResultFilterAtSmallPanel();
         pages.searchPage.isSearchResultDisplayed();
     }
+
+    @Override
+    public void searchByContributorMinimized(String contributor) {
+        pages.searchPage.ensurePageLoaded();
+        pages.searchPage.searchByContributorMinimized(contributor);
+        pages.searchPage.ensurePageLoaded();
+    }
+
+    @Override
+    public boolean checkContributorFilterPresent(String contributor) {
+        pages.searchPage.ensurePageLoaded();
+        return pages.searchPage.checkContributorFilterPresent(contributor);
+    }
 }

@@ -8,4 +8,8 @@ public interface SearchHelperInterface {
     void addItemsToCart(int[] index);
 
     void filterResultsByMaxAccuracy();
+
+    void searchByContributorMinimized(String contributor);
+
+    boolean checkContributorFilterPresent(String contributor);
 }

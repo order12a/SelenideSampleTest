@@ -11,6 +11,8 @@ public class PageManager {
     public MainPageLoggedIn mainPageLoggedIn;
     public SearchPage searchPage;
     public LoginPageStatic loginPageStatic;
+    public CartPage cartPage;
+    public PopupItemPage popupItemPage;
 
     public PageManager(){
         anyPage = new AnyPage(WebDriverRunner.getWebDriver());
@@ -26,5 +28,7 @@ public class PageManager {
         mainPageLoggedIn = new MainPageLoggedIn(driver);
         searchPage = new SearchPage(driver);
         loginPageStatic = new LoginPageStatic(driver);
+        cartPage = new CartPage(driver);
+        popupItemPage = new PopupItemPage(driver);
     }
 }

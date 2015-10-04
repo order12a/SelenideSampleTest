@@ -5,7 +5,6 @@ import dp.pages.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.present;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -25,6 +24,8 @@ public class LeftSearchPanelMinimized extends Page{
     SelenideElement peopleIconSmall = $(".advanced-search-icon.people");
     SelenideElement sizeIconSmall = $(".advanced-search-icon.size");
     SelenideElement colorIconSmall = $(".advanced-search-icon.color");
+    SelenideElement contributorField = $(By.xpath("//div[contains(@class,'contributor active')]/div[2]/label/input"));
+    SelenideElement applyContributorButton = $(By.xpath("//form/div[contains(@class,'contributor')]/div[2]/button"));
 
     SelenideElement sliderLine = $(By.xpath("//div[contains(@class,'ui-slider-inside')]"));
     SelenideElement sliderPoint = $(By.xpath("//span[contains(@class,'ui-slider-handle')]"));
@@ -77,4 +78,11 @@ public class LeftSearchPanelMinimized extends Page{
         return sliderPoint.shouldBe(present);
     }
 
+    public SelenideElement getContributorField() {
+        return contributorField.shouldBe(visible);
+    }
+
+    public SelenideElement getApplyContributorButton() {
+        return applyContributorButton.shouldBe(visible);
+    }
 }

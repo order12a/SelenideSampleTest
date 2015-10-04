@@ -27,7 +27,6 @@ public class TestSearch extends TestDataClass{
         assertTrue("Check that search field stores request", $(By.xpath(".//input[@id='d_search4']")).getAttribute("value").contains(KEY));
 
         System.out.println("\n" + $(By.xpath(".//input[@id='d_search4']")).getAttribute("value").toUpperCase() + "\n");
-        sleep(2);
     }
 
     @Ignore
@@ -40,6 +39,7 @@ public class TestSearch extends TestDataClass{
         sleep(5);
     }
 
+    @Ignore
     @Test
     public void testAccuracyMinimized(){
         open(searchUrl);
@@ -50,6 +50,17 @@ public class TestSearch extends TestDataClass{
         Assert.assertEquals("Assert that we have search results.", true, app.getSearchHelper().isSearchResultDisplayed());
     }
 
+    @Test
+    @UseDataProvider(value = "search_by_contributor", location = TestDataClass.class)
+    public void searchByContributorMinimized(String url, String contributor){
+        open(url);
+        Assert.assertEquals("Assert that search page not broken.", true, app.getSearchHelper().isSearchPageReady());
+        app.getSearchHelper().searchByContributorMinimized(contributor);
+        Assert.assertEquals("Assert that we have search results.", true, app.getSearchHelper().isSearchResultDisplayed());
+        Assert.assertEquals("Assert filter by contributor present", true, app.getSearchHelper().checkContributorFilterPresent(contributor));
+    }
+
+    @Ignore
     @After
     public void disable(){
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();

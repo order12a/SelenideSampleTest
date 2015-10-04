@@ -1,3 +1,4 @@
+import bases.JUnitRetry;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.impl.ScreenShotLaboratory;
@@ -21,8 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class TestBase {
-    final String KEY = "run";
-    final String URL = "http://depositphotos.com";
+
     public PageManager pageManager = new PageManager();
     private static Logger LOG = LogManager.getLogger(TestBase.class);
 //    final String LOG_FILE = "/main/java/resources/log4j.properties";
@@ -45,19 +45,22 @@ public class TestBase {
 
     }
 
-//    @Rule
-//    public TestWatcher screenshotOnFailure = new TestWatcher() {
-//        @Override
-//        protected void failed(Throwable e, Description description) {
-//            app.getCurrentUrl();
-////            makeScreenshotOnFailure();
-//        }
-//
-//        @Attachment("Screenshot on failure")
-//        public byte[] makeScreenshotOnFailure() {
-//            return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-//        }
-//    };
+    @Rule
+    public JUnitRetry retry = new JUnitRetry(2);
+
+    @Rule
+    public TestWatcher screenshotOnFailure = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            app.getCurrentUrl();
+            makeScreenshotOnFailure();
+        }
+
+        @Attachment("Screenshot on failure")
+        public byte[] makeScreenshotOnFailure() {
+            return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        }
+    };
 
 
 

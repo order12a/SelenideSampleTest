@@ -30,4 +30,15 @@ public class TestDataClass extends  TestBase{
                 {"beach woman"}
         };
     }
+
+    @DataProvider
+    public static Object[][] redirect_to_login_page_urls(){
+        return new Object[][]{
+                {"/home.html", "usefOne", "1"},
+                {"/credits.html", "usefOne", "1"},
+                {"/profile.html", "usefOne", "1"},
+                {"/favorites.html", "usefOne", "1"},
+                {"/subaccounts.html", "usefOne", "1"}
+        };
+    }
 }

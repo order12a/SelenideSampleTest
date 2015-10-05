@@ -19,9 +19,7 @@ public class MainPageLoggedIn extends AnyPage {
         boolean flag = true;
         ensurePageLoaded();
         flag = flag & isAvatarHolderDisplayed();
-        System.out.println("Avatar icon displayed -" + flag);
         flag = flag & isUsernameDisplayed(username);
-        System.out.println("Username present -" + flag);
         return flag;
     }
 

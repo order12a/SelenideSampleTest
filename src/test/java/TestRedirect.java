@@ -22,4 +22,12 @@ public class TestRedirect extends TestDataClass{
         open(searchUrl);
 
     }
+
+    @Test
+    @UseDataProvider(value = "redirect_to_login_page_urls", location = TestDataClass.class)
+    public void redirectToStaticLoginPage(String url, String username, String password){
+        open(URL + url);
+        app.getUserHelper().loginStatic(username, password);
+        Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
+    }
 }

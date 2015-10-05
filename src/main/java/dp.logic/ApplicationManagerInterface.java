@@ -1,9 +1,11 @@
 package dp.logic;
 
+import model.User;
+
 public interface ApplicationManagerInterface {
     void clearCookies();
-    void directLogin(String user);
-    void directLogin(String user, String backUrl);
+    void directLogin(User user);
+    void directLogin(String baseURL, User user, String backUrl);
     void directLogout(String baseURL);
     boolean isProd();
     void getCurrentUrl();

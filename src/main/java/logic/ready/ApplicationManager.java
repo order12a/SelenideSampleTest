@@ -6,6 +6,7 @@ import dp.logic.ApplicationManagerInterface;
 import dp.logic.NavigationHelperInterface;
 import dp.logic.SearchHelperInterface;
 import dp.logic.UserHelperInterface;
+import model.User;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -14,7 +15,7 @@ import util.LogHelper;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class ApplicationManager extends LogHelper implements ApplicationManagerInterface{
+public class ApplicationManager extends DriverBasedHelper implements ApplicationManagerInterface{
 
     private String baseUrl = "http://depositphotos.com";
     private String adminUrl;
@@ -22,6 +23,7 @@ public class ApplicationManager extends LogHelper implements ApplicationManagerI
     private UserHelperInterface userHelperInterface;
     private NavigationHelperInterface navigationHelperInterface;
     private SearchHelperInterface searchHelperInterface;
+//    protected WebDriver driver;
 
     public ApplicationManager() {
 //        adminUrl = "http://admin." + baseUrl.replace("http://", "");
@@ -29,6 +31,7 @@ public class ApplicationManager extends LogHelper implements ApplicationManagerI
         userHelperInterface = new UserHelper(this);
         navigationHelperInterface = new NavigationHelper(this);
         searchHelperInterface = new SearchHelper(this);
+//        this.driver = WebDriverRunner.getWebDriver();
     }
 
     public void clearCookies() {
@@ -45,12 +48,17 @@ public class ApplicationManager extends LogHelper implements ApplicationManagerI
         open(baseUrl);
     }
 
-    public void directLogin(String user) {
+    @Step("Direct login of current user.")
+    public void directLogin(User user) {
 
     }
 
-    public void directLogin(String user, String backUrl) {
-
+    @Step("Direct login of current user. With target url {1}")
+    public void directLogin(String baseURL, User user, String backUrl) {
+        System.out.println(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword() + "&backURL[page]=" + backUrl);
+        open(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword() + "&backURL[page]=" + backUrl);
+        pages.anyPage.ensurePageLoaded();
+        pages.anyPage.waitForAjaxResponse(15);
     }
 
     @Step("Direct logout from user account: {0}")

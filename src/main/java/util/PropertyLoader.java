@@ -9,6 +9,7 @@ public class PropertyLoader {
 
     private static String propertyFile = "/application.properties";
 
+    //override default property file
     public static void usePropertyFile(String propertyFile){
         propertyFile = propertyFile;
     }
@@ -36,5 +37,11 @@ public class PropertyLoader {
             }
         }
         return propertyValue;
+    }
+
+    //override default property file and get property
+    public static String loadProperty(String name, String propertyFile){
+        propertyFile = propertyFile;
+        return  loadProperty(name);
     }
 }

@@ -79,6 +79,9 @@
                             <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
                         </property>
                     </properties>
+                    <systemPropertyVariables>
+                        <application.properties>/application.properties</application.properties>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -103,7 +106,6 @@
             </plugin>
         </plugins>
     </build>
-
     <reporting>
         <excludeDefaults>true</excludeDefaults>
         <plugins>
@@ -118,4 +120,18 @@
             </plugin>
         </plugins>
     </reporting>
+    <profiles>
+        <profile>
+            <id>net</id>
+            <properties>
+                <site.url>http://depositphotos.net/</site.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>com</id>
+            <properties>
+                <site.url>http://depositphotos.com/</site.url>
+            </properties>
+        </profile>
+    </profiles>
 </project>

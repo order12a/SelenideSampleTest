@@ -1,5 +1,6 @@
 package dp.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,8 +14,15 @@ public class MainPageLoggedOut extends AnyPage{
 
     SelenideElement loginButton = $(By.xpath("//a[contains(@class, 'd_html_tips')]"));
 
+    public boolean ensurePageLoaded(){
+
+        return false;
+    }
+
     public void clickLoginButton(){
-        loginButton.isDisplayed();
+        loginButton.waitUntil(Condition.visible, 15);
         loginButton.click();
     }
+
+
 }

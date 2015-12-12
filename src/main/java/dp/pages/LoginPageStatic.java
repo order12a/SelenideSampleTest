@@ -2,12 +2,11 @@ package dp.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import dp.pages.components.PassworRecoveryPopup;
 import org.openqa.selenium.WebDriver;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 
-public class LoginPageStatic extends AnyPage implements PassworRecoveryPopup{
+public class LoginPageStatic extends AnyPage {
     public LoginPageStatic(WebDriver driver) {
         super(driver);
     }
@@ -25,14 +24,14 @@ public class LoginPageStatic extends AnyPage implements PassworRecoveryPopup{
 
     public void recoverPasswordByEmail(String email){
         passwordRecoveryLink.shouldBe(Condition.visible).click();
-        isPopupDisplayed();
-        resetPasswordViaEmail(email);
+//        isPopupDisplayed();TODO implement delegation via constructor
+//        resetPasswordViaEmail(email);
     }
 
     public void recoverPasswordByUsername(String username){
         passwordRecoveryLink.shouldBe(Condition.visible).click();
-        isPopupDisplayed();
-        resetPasswordViaUsername(username);
+//        isPopupDisplayed();TODO implement delegation via constructor
+//        resetPasswordViaUsername(username);
     }
 
     public void login(String username, String password){

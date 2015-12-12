@@ -1,8 +1,7 @@
 package dp.pages;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +28,6 @@ public abstract class Page {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -47,7 +45,6 @@ public abstract class Page {
     /*
     * This method is used to wait for getting response from all Ajax requests
     */
-
     public void waitForAjaxResponse(int timeoutSeconds){
         if (driver instanceof JavascriptExecutor) {
             JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
@@ -67,7 +64,6 @@ public abstract class Page {
     /*
      * wait for Ajax using JS finished
      */
-
     public void waitForJavaScriptResponse(int timeoutSeconds){
         if(driver instanceof JavascriptExecutor && timeoutSeconds > 0){
             JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
@@ -87,7 +83,6 @@ public abstract class Page {
     /*
      * Wait for Ajax another implementation
      */
-
     public static void waitForAjax(WebDriver driver) {
         new WebDriverWait(driver, 180).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
@@ -95,5 +90,13 @@ public abstract class Page {
                 return (Boolean) js.executeScript("return jQuery.active == 0");
             }
         });
+    }
+
+    public void setPageLoadTimeout(int waitTimeInSeconds){
+        driver.manage().timeouts().pageLoadTimeout(waitTimeInSeconds, TimeUnit.SECONDS);
+    }
+
+    public void setImplicitlyWaitTime(int waitTimeInSeconds){
+        driver.manage().timeouts().implicitlyWait(waitTimeInSeconds, TimeUnit.SECONDS);
     }
 }

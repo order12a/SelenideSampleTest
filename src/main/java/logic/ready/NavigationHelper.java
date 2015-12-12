@@ -1,7 +1,6 @@
 package logic.ready;
 
 import dp.logic.NavigationHelperInterface;
-import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -51,5 +50,10 @@ public class NavigationHelper extends DriverBasedHelper implements NavigationHel
 
     public boolean openOurPlansAndPrices() {
         return false;
+    }
+
+    public void openSignUpPage() {
+        pages.anyPage.ensurePageLoaded();
+        open("/signup.html");
     }
 }

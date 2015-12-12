@@ -1,37 +1,32 @@
 package logic.ready;
 
-
 import com.codeborne.selenide.WebDriverRunner;
 import dp.logic.ApplicationManagerInterface;
 import dp.logic.NavigationHelperInterface;
 import dp.logic.SearchHelperInterface;
 import dp.logic.UserHelperInterface;
 import model.User;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import ru.yandex.qatools.allure.annotations.Step;
-import util.LogHelper;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationManager extends DriverBasedHelper implements ApplicationManagerInterface{
 
+//    protected static String baseUrl;
     private String baseUrl = "http://depositphotos.com";
-    private String adminUrl;
-    private String apiUrl;
     private UserHelperInterface userHelperInterface;
     private NavigationHelperInterface navigationHelperInterface;
     private SearchHelperInterface searchHelperInterface;
 //    protected WebDriver driver;
 
     public ApplicationManager() {
-//        adminUrl = "http://admin." + baseUrl.replace("http://", "");
-//        apiUrl = "http://api." + baseUrl.replace("http://", "");
+//      baseUrl = PropertyLoader.loadProperty("site.url");
+
         userHelperInterface = new UserHelper(this);
         navigationHelperInterface = new NavigationHelper(this);
         searchHelperInterface = new SearchHelper(this);
-//        this.driver = WebDriverRunner.getWebDriver();
     }
 
     public void clearCookies() {
@@ -40,8 +35,9 @@ public class ApplicationManager extends DriverBasedHelper implements Application
                 WebDriverRunner.getWebDriver().manage().deleteAllCookies();
                 WebDriverRunner.clearBrowserCache();
                 WebDriverRunner.getWebDriver().navigate().refresh();
-            }catch (NoSuchElementException nE){
+            }catch (WebDriverException e){
                 WebDriverRunner.getWebDriver().getCurrentUrl();
+                e.printStackTrace();
             }
         }
 
@@ -87,8 +83,13 @@ public class ApplicationManager extends DriverBasedHelper implements Application
         return WebDriverRunner.getWebDriver();
     }
 
+    @Step("Get current url.")
     public void getCurrentUrl() {
         String currentUrl = getWebdriver().getCurrentUrl();
-        logMe(currentUrl);
+//        logMe(currentUrl);
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
     }
 }

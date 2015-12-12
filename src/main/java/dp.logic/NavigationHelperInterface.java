@@ -11,4 +11,6 @@ public interface NavigationHelperInterface {
     boolean openSellerMenu();
     boolean openFavoritesPage();
     boolean openOurPlansAndPrices();
+
+    void openSignUpPage();
 }

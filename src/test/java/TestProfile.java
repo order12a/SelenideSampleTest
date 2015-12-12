@@ -1,12 +1,15 @@
 import com.codeborne.selenide.WebDriverRunner;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Parameter;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(DataProviderRunner.class)
 public class TestProfile extends TestDataClass{
@@ -18,8 +21,9 @@ public class TestProfile extends TestDataClass{
     }
 
     @Test
+    @Description("Login user via tip.")
     @UseDataProvider(value = "users", location = TestDataClass.class)
-    public void loginTestWithSteps(String username, String password){
+    public void loginViaTip(@Parameter("login") String username, @Parameter("password") String password){
         WebDriverRunner.getWebDriver().get(URL);
         app.getNavigationHelper().openMainPage();
         app.getUserHelper().login(username, password);
@@ -27,11 +31,20 @@ public class TestProfile extends TestDataClass{
     }
 
     @Test
+    @Description("Login user at static login page.")
     @UseDataProvider(value = "users", location = TestDataClass.class)
-    public void loginTestStatic(String username, String password){
+    public void loginTestStatic(@Parameter("login") String username, @Parameter("password") String password){
         open(staticLoginUrl);
         app.getUserHelper().loginStatic(username, password);
         Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
+    }
+
+    @Test
+    @Description("Register new buyer test.")
+    public void registerNewBuyer(){
+        app.getNavigationHelper().openSignUpPage();
+        app.getUserHelper().registerNewUser();
+        app.getNavigationHelper().openMainPage();
     }
 
     @After

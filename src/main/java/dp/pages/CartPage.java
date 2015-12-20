@@ -2,6 +2,7 @@ package dp.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -16,10 +17,12 @@ public class CartPage extends AnyPage {
     SelenideElement clearCartButton = $(".clear-button");
     SelenideElement removePromptButton = $(".button.l.blue.notification-popup");
     SelenideElement cartEmptyIndicator = $(".cart-empty>p");
+    SelenideElement cartCounter = $(".shopping-cart-counter");
+    SelenideElement itemIcon = $(".deposit-item");
 
     public boolean ensurePageLoaded(){
         waitForAjaxResponse(15);
-        pageHead.waitUntil(Condition.visible, 15);
+        pageHead.waitUntil(Condition.visible, WAINT_SECONDS);
         return pageHead.isDisplayed();
     }
 
@@ -27,6 +30,23 @@ public class CartPage extends AnyPage {
         clearCartButton.shouldBe(Condition.visible).click();
         removePromptButton.shouldBe(Condition.visible).click();
         waitForAjaxResponse(15);
-        cartEmptyIndicator.waitUntil(Condition.visible, 15);
+        cartEmptyIndicator.waitUntil(Condition.visible, WAINT_SECONDS);
+    }
+
+    public String getCounterOfItems(){
+        if(cartCounter.isDisplayed()){
+            cartCounter.waitUntil(Condition.visible, WAINT_SECONDS);
+            return cartCounter.getText();
+        }else if(cartCounter.exists()){
+            cartCounter.waitUntil(Condition.present, WAINT_SECONDS);
+            return cartCounter.getText();
+        }else {
+            throw new ElementNotFound(cartCounter.toString(), Condition.present);
+        }
+    }
+
+    public String getItemId() {
+        itemIcon.shouldBe(Condition.visible);
+        return itemIcon.getAttribute("data-id");
     }
 }

@@ -1,6 +1,8 @@
+import bases.TestDataClass;
 import com.codeborne.selenide.WebDriverRunner;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +14,7 @@ import ru.yandex.qatools.allure.annotations.Parameter;
 import static com.codeborne.selenide.Selenide.open;
 
 @RunWith(DataProviderRunner.class)
-public class TestProfile extends TestDataClass{
+public class Profile extends TestDataClass {
     String staticLoginUrl = "http://depositphotos.com/login.html";
 
     @Before
@@ -24,7 +26,7 @@ public class TestProfile extends TestDataClass{
     @Description("Login user via tip.")
     @UseDataProvider(value = "users", location = TestDataClass.class)
     public void loginViaTip(@Parameter("login") String username, @Parameter("password") String password){
-        WebDriverRunner.getWebDriver().get(URL);
+        WebDriverRunner.getWebDriver().get(BASE_URL);
         app.getNavigationHelper().openMainPage();
         app.getUserHelper().login(username, password);
         Assert.assertTrue(app.getUserHelper().isLoggedIn(username));
@@ -47,9 +49,11 @@ public class TestProfile extends TestDataClass{
         app.getNavigationHelper().openMainPage();
     }
 
-    @After
-    public void disable(){
-        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
-        WebDriverRunner.getWebDriver().navigate().refresh();
-    }
+
+//    @Ignore
+//    @After
+//    public void disable(){
+//        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+//        WebDriverRunner.getWebDriver().navigate().refresh();
+//    }
 }

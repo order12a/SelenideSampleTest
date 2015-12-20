@@ -1,7 +1,7 @@
 package dp.pages;
 
 import com.codeborne.selenide.WebDriverRunner;
-import dp.pages.*;
+import dp.pages.components.LoginTip;
 import org.openqa.selenium.WebDriver;
 
 public class PageManager {
@@ -13,6 +13,7 @@ public class PageManager {
     public LoginPageStatic loginPageStatic;
     public CartPage cartPage;
     public PopupItemPage popupItemPage;
+    public ItemPage itemPage;
 
     public PageManager(){
         anyPage = new AnyPage(WebDriverRunner.getWebDriver());
@@ -30,5 +31,6 @@ public class PageManager {
         loginPageStatic = new LoginPageStatic(driver);
         cartPage = new CartPage(driver);
         popupItemPage = new PopupItemPage(driver);
+        itemPage = new ItemPage(driver);
     }
 }

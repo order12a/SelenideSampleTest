@@ -1,12 +1,35 @@
 package logic.ready;
 
 import dp.logic.SearchHelperInterface;
-import org.openqa.selenium.WebDriver;
+import model.Content;
 
 public class SearchHelper extends DriverBasedHelper implements SearchHelperInterface{
 
     public SearchHelper(ApplicationManager manager) {
         super(manager.getWebdriver());
+    }
+
+    @Override
+    public boolean isSearchFieldFilledWithRequest(String searchRequest) {
+        //TODO implement
+        return false;
+    }
+
+    @Override
+    public void searchFromMainPage(String searchRequest) {
+        pages.mainPageLoggedOut.ensurePageLoaded();
+        pages.mainPageLoggedOut.searchByKeyword(searchRequest);
+    }
+
+    @Override
+    public void searchByKeywordWithContent(String searchRequest, Content content) {
+        //TODO implement
+    }
+
+    @Override
+    public boolean isSearchContentEqualTo(Content content) {
+        //TODO implement
+        return false;
     }
 
     @Override
@@ -31,16 +54,8 @@ public class SearchHelper extends DriverBasedHelper implements SearchHelperInter
     }
 
     @Override
-    public void addItemsToCart(int[] index) {
+    public void addItemsFromSearchToCart(int[] index) {
         pages.searchPage.addToCart(index);
-    }
-
-    @Override
-    public void filterResultsByMaxAccuracy() {
-        pages.searchPage.ensurePageLoaded();
-        pages.searchPage.isSearchResultDisplayed();
-        pages.searchPage.enableMaxResultFilterAtSmallPanel();
-        pages.searchPage.isSearchResultDisplayed();
     }
 
     @Override

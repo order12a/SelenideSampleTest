@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Page {
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected long WAINT_SECONDS = 15000;
 
     private static Logger LOG = LogManager.getLogger(Page.class);
 
@@ -23,28 +24,9 @@ public abstract class Page {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
-    //Try to avoid using it! as it will slow down tests and is Thread-unsafe if will run tests in parallel! Use implicit waits instead (e.g. waitForElementPresent etc...)!
-    public void waitSeconds(int seconds){
-        try {
-            Thread.sleep(seconds * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //wait wrapper to wait elements generating by js framework e.g. Backbone (pure webdriver implementation)
-    public void waitElementLoadedAndVisible(WebElement element){
-        wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(element)));
-    }
-
-    //wait wrapper to wait elements generating by js framework e.g. Backbone (pure webdriver implementation)
-    public void waitElementLoadedAndClickable(WebElement element){
-        wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(element)));
-    }
-
-    /*
-    * This method is used to wait for getting response from all Ajax requests
-    */
+    /**
+     * This method is used to wait for getting response from all Ajax requests
+     */
     public void waitForAjaxResponse(int timeoutSeconds){
         if (driver instanceof JavascriptExecutor) {
             JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
@@ -61,8 +43,8 @@ public abstract class Page {
         }
     }
 
-    /*
-     * wait for Ajax using JS finished
+    /**
+     * wait for Ajax finished using JS
      */
     public void waitForJavaScriptResponse(int timeoutSeconds){
         if(driver instanceof JavascriptExecutor && timeoutSeconds > 0){
@@ -80,7 +62,7 @@ public abstract class Page {
         }
     }
 
-    /*
+    /**
      * Wait for Ajax another implementation
      */
     public static void waitForAjax(WebDriver driver) {
@@ -98,5 +80,27 @@ public abstract class Page {
 
     public void setImplicitlyWaitTime(int waitTimeInSeconds){
         driver.manage().timeouts().implicitlyWait(waitTimeInSeconds, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Try to avoid using it! as it will slow down tests and is Thread-unsafe if will run tests in parallel!
+     * Use implicit waits instead (e.g. waitForElementPresent etc...)!
+     */
+    public void waitSeconds(int seconds){
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //wait wrapper to wait elements generating by js framework e.g. Backbone (pure webdriver implementation)
+    public void waitElementLoadedAndVisible(WebElement element){
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(element)));
+    }
+
+    //wait wrapper to wait elements generating by js framework e.g. Backbone (pure webdriver implementation)
+    public void waitElementLoadedAndClickable(WebElement element){
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(element)));
     }
 }

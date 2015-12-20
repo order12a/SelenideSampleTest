@@ -21,24 +21,20 @@ public class PopupItemPage extends AnyPage{
     SelenideElement previousItemIcon = $(".circle-prev-bicon.gray");
 
     public boolean ensurePageLoaded(){
-        waitForAjaxResponse(15);
         imageContainer.waitUntil(Condition.visible, 15);
         return imageContainer.isDisplayed();
     }
 
     public void clickDownloadButton(){
         downloadButton.shouldBe(Condition.visible).click();
-        waitForAjax(driver);
     }
 
     public void addToCart(){
         imageContainer.hover().find(".lightbox-add>span").click();
-        waitForAjax(driver);
     }
 
     public void addToFavorites(){
         imageContainer.hover();
         addToCartIcon.click();
-        waitForAjax(driver);
     }
 }

@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>2.45.0</version>
+            <version>2.48.0</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>2.22</version>
+            <version>2.25</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -102,6 +102,15 @@
                     <webAppSourceDirectory>target/site/allure-maven-plugin</webAppSourceDirectory>
                     <stopKey>stop</stopKey>
                     <stopPort>1234</stopPort>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

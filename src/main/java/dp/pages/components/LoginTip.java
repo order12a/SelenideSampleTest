@@ -1,13 +1,14 @@
-package dp.pages;
+package dp.pages.components;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import dp.pages.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class LoginTip extends AnyPage{
+public class LoginTip extends Page {
     public LoginTip(WebDriver driver){
         super(driver);
     }

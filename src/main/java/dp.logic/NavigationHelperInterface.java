@@ -13,4 +13,6 @@ public interface NavigationHelperInterface {
     boolean openOurPlansAndPrices();
 
     void openSignUpPage();
+
+    void openRelativerUrl(String itemUrl);
 }

@@ -1,13 +1,13 @@
-import org.junit.runner.RunWith;
+package bases;
+
+import bases.TestBase;
 
 import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
 
 
-public class TestDataClass extends  TestBase{
-    final String KEY = "run";
-    final String URL = "http://depositphotos.com";
+public class TestDataClass extends TestBase {
+    protected final String KEY = "run";
+    protected final String BASE_URL = "http://depositphotos.com";
 
     @DataProvider
     public static Object[][] users() {
@@ -20,7 +20,7 @@ public class TestDataClass extends  TestBase{
     @DataProvider
     public static Object[][] search_by_contributor(){
         return new Object[][]{
-                {"http://depositphotos.com/search-all/index.html", "igor_kali"}
+                {"/search-all/index.html", "igor_kali"}
         };
     }
 

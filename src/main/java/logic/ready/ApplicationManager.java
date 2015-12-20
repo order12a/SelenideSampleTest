@@ -1,10 +1,7 @@
 package logic.ready;
 
 import com.codeborne.selenide.WebDriverRunner;
-import dp.logic.ApplicationManagerInterface;
-import dp.logic.NavigationHelperInterface;
-import dp.logic.SearchHelperInterface;
-import dp.logic.UserHelperInterface;
+import dp.logic.*;
 import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -19,22 +16,28 @@ public class ApplicationManager extends DriverBasedHelper implements Application
     private UserHelperInterface userHelperInterface;
     private NavigationHelperInterface navigationHelperInterface;
     private SearchHelperInterface searchHelperInterface;
+    private CartHelperInterface cartHelperInterface;
+    private ViewItemHelperInterface viewItemHelperInterface;
 //    protected WebDriver driver;
 
     public ApplicationManager() {
 //      baseUrl = PropertyLoader.loadProperty("site.url");
+        initiateAllHelpers();
+    }
 
+    public void initiateAllHelpers(){
         userHelperInterface = new UserHelper(this);
         navigationHelperInterface = new NavigationHelper(this);
         searchHelperInterface = new SearchHelper(this);
+        cartHelperInterface = new CartHelper(this);
+        viewItemHelperInterface = new ViewItemHelper(this);
     }
+
 
     public void clearCookies() {
         if(WebDriverRunner.getWebDriver() != null && WebDriverRunner.getWebDriver().getWindowHandles().size() > 0){
             try {
-                WebDriverRunner.getWebDriver().manage().deleteAllCookies();
                 WebDriverRunner.clearBrowserCache();
-                WebDriverRunner.getWebDriver().navigate().refresh();
             }catch (WebDriverException e){
                 WebDriverRunner.getWebDriver().getCurrentUrl();
                 e.printStackTrace();
@@ -44,7 +47,7 @@ public class ApplicationManager extends DriverBasedHelper implements Application
         open(baseUrl);
     }
 
-    @Step("Direct login of current user.")
+    @Step("Direct login of current user {0}.")
     public void directLogin(User user) {
 
     }
@@ -59,24 +62,37 @@ public class ApplicationManager extends DriverBasedHelper implements Application
 
     @Step("Direct logout from user account: {0}")
     public void directLogout(String baseURL) {
-//        logMe();
         open(baseURL + "/login/logout.html?backURL=login.html");
     }
 
     public boolean isProd() {
+        //TODO implement
         return false;
     }
 
+    @Override
     public NavigationHelperInterface getNavigationHelper() {
         return navigationHelperInterface;
     }
 
+    @Override
     public UserHelperInterface getUserHelper() {
         return userHelperInterface;
     }
 
+    @Override
     public SearchHelperInterface getSearchHelper() {
         return searchHelperInterface;
+    }
+
+    @Override
+    public CartHelperInterface getCartHelper(){
+        return cartHelperInterface;
+    }
+
+    @Override
+    public ViewItemHelperInterface getViewItemHelper() {
+        return viewItemHelperInterface;
     }
 
     public WebDriver getWebdriver(){
@@ -84,9 +100,9 @@ public class ApplicationManager extends DriverBasedHelper implements Application
     }
 
     @Step("Get current url.")
-    public void getCurrentUrl() {
+    public String getCurrentUrl() {
         String currentUrl = getWebdriver().getCurrentUrl();
-//        logMe(currentUrl);
+        return currentUrl;
     }
 
     public String getBaseUrl() {

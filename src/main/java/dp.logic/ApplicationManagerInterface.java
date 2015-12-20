@@ -8,9 +8,10 @@ public interface ApplicationManagerInterface {
     void directLogin(String baseURL, User user, String backUrl);
     void directLogout(String baseURL);
     boolean isProd();
-    void getCurrentUrl();
+    String getCurrentUrl();
     NavigationHelperInterface getNavigationHelper();
     UserHelperInterface getUserHelper();
     SearchHelperInterface getSearchHelper();
-
+    CartHelperInterface getCartHelper();
+    ViewItemHelperInterface getViewItemHelper();
 }

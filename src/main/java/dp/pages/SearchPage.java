@@ -18,7 +18,6 @@ public class SearchPage extends AnyPage{
     SelenideElement searchResultHolder = $(".item-image>img");
     List<SelenideElement> searchResultHolders = $$(".item-image>img");
     SelenideElement addToCartIcon = $(By.xpath("//span[@class='item-action']/span[@class='shopping-cart-button']"));
-    SelenideElement cartCounter = $(".shopping-cart-counter.counter-label");
     SelenideElement clearFiltersLink = $(By.xpath("//div[@class='control-item clear-text-label active']/a"));
     SelenideElement contributorFilterIcon = $(".filter-item.contributor.active>span");
 
@@ -39,7 +38,6 @@ public class SearchPage extends AnyPage{
         searchField.clear();
         searchField.val(keyword);
         searchButton.shouldBe(visible).click();
-        waitForAjaxResponse(15);
     }
 
     public boolean isSearchResultDisplayed(){
@@ -67,10 +65,6 @@ public class SearchPage extends AnyPage{
         }
     }
 
-    public boolean isCartIndexIncreased(){
-        return cartCounter.getAttribute("data-value").length() > 0;
-    }
-
     public void enableMaxResultFilterAtSmallPanel() {
         leftPanelSmall.getAccuracyIconSmall().click();
         leftPanelSmall.getSliderPoint().click();
@@ -92,6 +86,7 @@ public class SearchPage extends AnyPage{
 
     public SearchPage clearFilters(){
         clearFiltersLink.click();
+        ensurePageLoaded();
         return this;
     }
 }

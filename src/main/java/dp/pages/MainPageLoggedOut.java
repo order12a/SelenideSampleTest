@@ -13,6 +13,8 @@ public class MainPageLoggedOut extends AnyPage{
     }
 
     SelenideElement loginButton = $(By.xpath("//a[contains(@class, 'd_html_tips')]"));
+    SelenideElement searchField = $("#d_search2");
+    SelenideElement searchButton = $(".search-button");
 
     public boolean ensurePageLoaded(){
 
@@ -20,9 +22,12 @@ public class MainPageLoggedOut extends AnyPage{
     }
 
     public void clickLoginButton(){
-        loginButton.waitUntil(Condition.visible, 15);
-        loginButton.click();
+        loginButton.waitUntil(Condition.visible, 15000).click();
     }
 
-
+    public void searchByKeyword(String searchRequest) {
+        searchField.clear();
+        searchField.val(searchRequest);
+        searchButton.waitUntil(Condition.visible, 15000).click();
+    }
 }

@@ -1,8 +1,6 @@
-import bases.JUnitRetry;
-import com.codeborne.selenide.Configuration;
+package bases;
+
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.impl.ScreenShotLaboratory;
-import com.codeborne.selenide.junit.ScreenShooter;
 import dp.logic.ApplicationManagerInterface;
 import logic.ready.ApplicationManager;
 import org.junit.AfterClass;
@@ -31,6 +29,7 @@ public class TestBase {
     @BeforeClass
     public static void setUp(){
         System.setProperty("selenide.screenshots", "false");
+        System.setProperty("selenide.reopenBrowserOnFail", "true");
 
         DesiredCapabilities capabilities;
         capabilities = DesiredCapabilities.chrome();
@@ -56,7 +55,7 @@ public class TestBase {
             makeScreenshotOnFailure();
         }
 
-        @Attachment("Screenshot on failure")
+        @Attachment("Screen shot on failure")
         public byte[] makeScreenshotOnFailure() {
             return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
         }
@@ -66,17 +65,18 @@ public class TestBase {
 
     @AfterClass
     public static void tearDown(){
-        WebDriverRunner.closeWebDriver();
-        if (WebDriverRunner.getWebDriver() != null){
-            LOG.info("Still have webdriver instances - " + WebDriverRunner.getWebDriver() != null);
-            try {
-                WebDriverRunner.getWebDriver().quit();
-                LOG.info("Check webdriver instances after quit, status of present instances- " + WebDriverRunner.getWebDriver() != null);
-            }catch (Exception e){
-//                killAllProcesses("chrome");
-                WebDriverRunner.getWebDriver().quit();
-            }
-        }
+//        WebDriverRunner.closeWebDriver();
+//        if (WebDriverRunner.getWebDriver() != null){
+//            LOG.info("Still have webdriver instances - " + WebDriverRunner.getWebDriver() != null);
+//            try {
+//                WebDriverRunner.getWebDriver().quit();
+//                LOG.info("Check webdriver instances after quit, status of present instances- " + WebDriverRunner.getWebDriver() != null);
+//            }catch (Exception e){
+////                killAllProcesses("chrome");
+//                WebDriverRunner.getWebDriver().quit();
+//            }
+//        }
+        WebDriverRunner.getWebDriver().quit();
     }
 
 

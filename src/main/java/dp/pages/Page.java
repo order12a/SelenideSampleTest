@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Page {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected long WAINT_SECONDS = 15000;
+    protected long WAIT_SECONDS = 15000;
 
     private static Logger LOG = LogManager.getLogger(Page.class);
 

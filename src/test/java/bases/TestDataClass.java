@@ -3,6 +3,8 @@ package bases;
 import bases.TestBase;
 
 import com.tngtech.java.junit.dataprovider.DataProvider;
+import model.Content;
+import model.User;
 
 
 public class TestDataClass extends TestBase {
@@ -25,9 +27,9 @@ public class TestDataClass extends TestBase {
     }
 
     @DataProvider
-    public static Object[][] serch_by_keyword(){
+    public static Object[][] search_by_keyword(){
         return new Object[][]{
-                {"beach woman"}
+                {"beach woman", Content.ALL}
         };
     }
 
@@ -39,6 +41,17 @@ public class TestDataClass extends TestBase {
                 {"/profile.html", "usefOne", "1"},
                 {"/favorites.html", "usefOne", "1"},
                 {"/subaccounts.html", "usefOne", "1"}
+        };
+    }
+
+    @DataProvider
+    public static Object[][] user_and_search_request(){
+        return new Object[][]{
+                {new User("usefOne", "1"), "moon"},
+                {new User("usefOne", "1"), "sport style"},
+                {new User("usefOne", "1"), "green color"},
+                {new User("usefOne", "1"), "stress emotion"},
+                {new User("usefOne", "1"), "food"},
         };
     }
 }

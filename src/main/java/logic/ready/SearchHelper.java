@@ -11,8 +11,8 @@ public class SearchHelper extends DriverBasedHelper implements SearchHelperInter
 
     @Override
     public boolean isSearchFieldFilledWithRequest(String searchRequest) {
-        //TODO implement
-        return false;
+        pages.searchPage.ensurePageLoaded();
+        return pages.searchPage.hasSearchFieldKeyword(searchRequest);
     }
 
     @Override
@@ -69,5 +69,10 @@ public class SearchHelper extends DriverBasedHelper implements SearchHelperInter
     public boolean checkContributorFilterPresent(String contributor) {
         pages.searchPage.ensurePageLoaded();
         return pages.searchPage.checkContributorFilterPresent(contributor);
+    }
+
+    @Override
+    public void searchFromHome(String keyword) {
+        pages.mainPageLoggedIn.searchFromUserMenuLoggedIn(keyword);
     }
 }

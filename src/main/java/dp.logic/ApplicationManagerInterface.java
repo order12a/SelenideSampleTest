@@ -4,7 +4,7 @@ import model.User;
 
 public interface ApplicationManagerInterface {
     void clearCookies();
-    void directLogin(User user);
+    void directLogin(User user, String baseUrl);
     void directLogin(String baseURL, User user, String backUrl);
     void directLogout(String baseURL);
     boolean isProd();
@@ -14,4 +14,5 @@ public interface ApplicationManagerInterface {
     SearchHelperInterface getSearchHelper();
     CartHelperInterface getCartHelper();
     ViewItemHelperInterface getViewItemHelper();
+    String getBaseUrl();
 }

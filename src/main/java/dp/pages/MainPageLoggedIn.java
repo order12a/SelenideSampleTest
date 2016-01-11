@@ -14,6 +14,8 @@ public class MainPageLoggedIn extends AnyPage {
 
     SelenideElement userIcon = $(".avatar-holder.small");
     SelenideElement usernameLine = $(".username");
+    SelenideElement searchButton = $(".search-button");
+    SelenideElement searchFieldHome = $("#d_search4");
 
     public boolean isLoggedIn(String username){
         boolean flag = true;
@@ -30,5 +32,10 @@ public class MainPageLoggedIn extends AnyPage {
     public boolean isUsernameDisplayed(String username){
         usernameLine.shouldBe(Condition.visible);
         return usernameLine.getText().equalsIgnoreCase(username);
+    }
+
+    public void searchFromUserMenuLoggedIn(String keyword){
+        searchFieldHome.shouldBe(Condition.visible).val(keyword);
+        searchButton.waitUntil(Condition.visible, WAIT_SECONDS).click();
     }
 }

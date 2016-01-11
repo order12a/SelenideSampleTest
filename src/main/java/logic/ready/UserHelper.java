@@ -2,6 +2,7 @@ package logic.ready;
 
 import dp.logic.UserHelperInterface;
 import model.Size;
+import model.User;
 import ru.yandex.qatools.allure.annotations.Step;
 
 public class UserHelper extends DriverBasedHelper implements UserHelperInterface {
@@ -27,9 +28,15 @@ public class UserHelper extends DriverBasedHelper implements UserHelperInterface
         pages.loginPageStatic.login(username, password);
     }
 
-    @Step
-    public void registerNewUser() {
+    @Override
+    public void skipCompleteProfileStep() {
         //TODO implement
+    }
+
+    @Step
+    public User registerNewUser() {
+        //TODO implement
+        return null;
     }
 
     @Override

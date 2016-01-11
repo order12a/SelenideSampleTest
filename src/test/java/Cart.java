@@ -30,7 +30,7 @@ public class Cart extends TestDataClass {
     public void addToCartFromItemPage(){
         String itemUrl = "";
         String itemId = "";
-        app.getNavigationHelper().openRelativerUrl(itemUrl);
+        app.getNavigationHelper().openRelativeUrl(itemUrl);
         app.getViewItemHelper().addToCart();
         Assert.assertTrue("Cart index is not increased.",  app.getUserHelper().isCartIndexIncreased());
         app.getNavigationHelper().openCart();

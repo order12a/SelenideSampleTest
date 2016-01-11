@@ -71,4 +71,9 @@ public class NavigationHelper extends DriverBasedHelper implements NavigationHel
         pages.anyPage.ensurePageLoaded();
         open("/signup.html");
     }
+
+    @Override
+    public void openRelativeUrl(String itemUrl) {
+
+    }
 }

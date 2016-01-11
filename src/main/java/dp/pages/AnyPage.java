@@ -21,7 +21,7 @@ public class AnyPage extends Page {
     }
 
     public boolean isCartIndexIncreased(){
-        cartCounter.waitUntil(visible, WAINT_SECONDS);
+        cartCounter.waitUntil(visible, WAIT_SECONDS);
         return cartCounter.getAttribute("data-value").length() > 0;
     }
 }

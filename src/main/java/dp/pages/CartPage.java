@@ -22,7 +22,7 @@ public class CartPage extends AnyPage {
 
     public boolean ensurePageLoaded(){
         waitForAjaxResponse(15);
-        pageHead.waitUntil(Condition.visible, WAINT_SECONDS);
+        pageHead.waitUntil(Condition.visible, WAIT_SECONDS);
         return pageHead.isDisplayed();
     }
 
@@ -30,15 +30,15 @@ public class CartPage extends AnyPage {
         clearCartButton.shouldBe(Condition.visible).click();
         removePromptButton.shouldBe(Condition.visible).click();
         waitForAjaxResponse(15);
-        cartEmptyIndicator.waitUntil(Condition.visible, WAINT_SECONDS);
+        cartEmptyIndicator.waitUntil(Condition.visible, WAIT_SECONDS);
     }
 
     public String getCounterOfItems(){
         if(cartCounter.isDisplayed()){
-            cartCounter.waitUntil(Condition.visible, WAINT_SECONDS);
+            cartCounter.waitUntil(Condition.visible, WAIT_SECONDS);
             return cartCounter.getText();
         }else if(cartCounter.exists()){
-            cartCounter.waitUntil(Condition.present, WAINT_SECONDS);
+            cartCounter.waitUntil(Condition.present, WAIT_SECONDS);
             return cartCounter.getText();
         }else {
             throw new ElementNotFound(cartCounter.toString(), Condition.present);

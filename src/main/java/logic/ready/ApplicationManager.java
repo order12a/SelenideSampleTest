@@ -48,14 +48,17 @@ public class ApplicationManager extends DriverBasedHelper implements Application
     }
 
     @Step("Direct login of current user {0}.")
-    public void directLogin(User user) {
-
+    public void directLogin(User user, String baseUrl) {
+        directLogin(baseUrl, user, new String());
     }
 
-    @Step("Direct login of current user. With target url {1}")
+    @Step("Direct login of current user. With target url {2}")
     public void directLogin(String baseURL, User user, String backUrl) {
-        System.out.println(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword() + "&backURL[page]=" + backUrl);
-        open(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword() + "&backURL[page]=" + backUrl);
+        if(backUrl.isEmpty()){
+            open(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword());
+        }else {
+            open(baseURL + "/login.html?username=" + user.getUsername() + "&password=" + user.getPassword() + "&backURL[page]=" + backUrl);
+        }
         pages.anyPage.ensurePageLoaded();
         pages.anyPage.waitForAjaxResponse(15);
     }

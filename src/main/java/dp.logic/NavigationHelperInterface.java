@@ -14,5 +14,5 @@ public interface NavigationHelperInterface {
 
     void openSignUpPage();
 
-    void openRelativerUrl(String itemUrl);
+    void openRelativeUrl(String itemUrl);
 }

@@ -2,7 +2,7 @@ import bases.TestDataClass;
 import com.codeborne.selenide.WebDriverRunner;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import model.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,15 +45,9 @@ public class Profile extends TestDataClass {
     @Description("Register new buyer test.")
     public void registerNewBuyer(){
         app.getNavigationHelper().openSignUpPage();
-        app.getUserHelper().registerNewUser();
-        app.getNavigationHelper().openMainPage();
+        User buyer = app.getUserHelper().registerNewUser();
+        app.getUserHelper().skipCompleteProfileStep();
+        app.getUserHelper().isLoggedIn("targetUser");
     }
 
-
-//    @Ignore
-//    @After
-//    public void disable(){
-//        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
-//        WebDriverRunner.getWebDriver().navigate().refresh();
-//    }
 }

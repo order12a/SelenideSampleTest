@@ -24,4 +24,6 @@ public interface SearchHelperInterface {
     void searchByKeywordWithContent(String searchRequest, Content content);
 
     boolean isSearchContentEqualTo(Content content);
+
+    void searchFromHome(String keyword);
 }

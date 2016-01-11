@@ -12,22 +12,24 @@ public class MainPageLoggedOut extends AnyPage{
         super(driver);
     }
 
+    SelenideElement banner = $(".series-element");
     SelenideElement loginButton = $(By.xpath("//a[contains(@class, 'd_html_tips')]"));
     SelenideElement searchField = $("#d_search2");
     SelenideElement searchButton = $(".search-button");
 
     public boolean ensurePageLoaded(){
-
-        return false;
+        waitForAjax(driver);
+        return banner.shouldBe(Condition.visible).isDisplayed();
     }
 
     public void clickLoginButton(){
-        loginButton.waitUntil(Condition.visible, 15000).click();
+        loginButton.waitUntil(Condition.visible, WAIT_SECONDS).click();
     }
 
     public void searchByKeyword(String searchRequest) {
         searchField.clear();
         searchField.val(searchRequest);
-        searchButton.waitUntil(Condition.visible, 15000).click();
+        searchButton.waitUntil(Condition.visible, WAIT_SECONDS).click();
     }
+
 }

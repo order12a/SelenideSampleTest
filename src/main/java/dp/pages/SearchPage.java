@@ -30,7 +30,7 @@ public class SearchPage extends AnyPage{
 
     public boolean ensurePageLoaded(){
         super.ensurePageLoaded();
-        return searchButton.shouldBe(visible).isDisplayed();
+        return searchButton.shouldBe(visible).isDisplayed() && searchField.shouldBe(visible).isDisplayed();
     }
 
     public void searchByKeyword(String keyword){
@@ -88,5 +88,9 @@ public class SearchPage extends AnyPage{
         clearFiltersLink.click();
         ensurePageLoaded();
         return this;
+    }
+
+    public boolean hasSearchFieldKeyword(String searchRequest) {
+        return searchField.getAttribute("value").equalsIgnoreCase(searchRequest);
     }
 }

@@ -18,21 +18,25 @@ import dp.pages.PageManager;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import ru.qatools.properties.PropertyLoader;
+import util.config.EnvironmentConfig;
 
 public class TestBase {
 
     public PageManager pageManager = new PageManager();
     private static Logger LOG = LogManager.getLogger(TestBase.class);
 //    final String LOG_FILE = "/main/java/resources/log4j.properties";
+    protected static String baseUrl;
     public static ApplicationManagerInterface app;
 
     @BeforeClass
     public static void setUp(){
         System.setProperty("selenide.screenshots", "false");
         System.setProperty("selenide.reopenBrowserOnFail", "true");
+        EnvironmentConfig config = PropertyLoader.newInstance().populate(EnvironmentConfig.class);
+        baseUrl = config.getBaseUrl();
 
-        DesiredCapabilities capabilities;
-        capabilities = DesiredCapabilities.chrome();
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("window-size=1400,1200");
@@ -41,7 +45,6 @@ public class TestBase {
         WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
         app = new ApplicationManager();
 //      WebDriverRunner.setWebDriver(new FirefoxDriver());
-
     }
 
     @Rule

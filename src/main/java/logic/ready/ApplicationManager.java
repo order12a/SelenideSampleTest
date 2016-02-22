@@ -11,18 +11,17 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class ApplicationManager extends DriverBasedHelper implements ApplicationManagerInterface{
 
-//    protected static String baseUrl;
-    private String baseUrl = "http://depositphotos.com";
+    protected String baseUrl;
     private UserHelperInterface userHelperInterface;
     private NavigationHelperInterface navigationHelperInterface;
     private SearchHelperInterface searchHelperInterface;
     private CartHelperInterface cartHelperInterface;
     private ViewItemHelperInterface viewItemHelperInterface;
-//    protected WebDriver driver;
 
-    public ApplicationManager() {
-//      baseUrl = PropertyLoader.loadProperty("site.url");
+    public ApplicationManager(final String baseUrl) {
+        this.baseUrl = baseUrl;
         initiateAllHelpers();
+        navigationHelperInterface.setBaseUrl(baseUrl);
     }
 
     public void initiateAllHelpers(){
@@ -68,8 +67,11 @@ public class ApplicationManager extends DriverBasedHelper implements Application
         open(baseURL + "/login/logout.html?backURL=login.html");
     }
 
+    @Override
     public boolean isProd() {
-        //TODO implement
+        if (baseUrl.contains(".com")){
+            return true;
+        }
         return false;
     }
 
@@ -102,12 +104,14 @@ public class ApplicationManager extends DriverBasedHelper implements Application
         return WebDriverRunner.getWebDriver();
     }
 
+    @Override
     @Step("Get current url.")
     public String getCurrentUrl() {
         String currentUrl = getWebdriver().getCurrentUrl();
         return currentUrl;
     }
 
+    @Override
     public String getBaseUrl() {
         return baseUrl;
     }

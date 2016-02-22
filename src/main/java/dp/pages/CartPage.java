@@ -5,7 +5,10 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
+
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class CartPage extends AnyPage {
     public CartPage(WebDriver driver) {
@@ -17,8 +20,8 @@ public class CartPage extends AnyPage {
     SelenideElement clearCartButton = $(".clear-button");
     SelenideElement removePromptButton = $(".button.l.blue.notification-popup");
     SelenideElement cartEmptyIndicator = $(".cart-empty>p");
-    SelenideElement cartCounter = $(".shopping-cart-counter");
     SelenideElement itemIcon = $(".deposit-item");
+    List<SelenideElement> items = $$(".deposit-item");
 
     public boolean ensurePageLoaded(){
         waitForAjaxResponse(15);
@@ -33,16 +36,9 @@ public class CartPage extends AnyPage {
         cartEmptyIndicator.waitUntil(Condition.visible, WAIT_SECONDS);
     }
 
-    public String getCounterOfItems(){
-        if(cartCounter.isDisplayed()){
-            cartCounter.waitUntil(Condition.visible, WAIT_SECONDS);
-            return cartCounter.getText();
-        }else if(cartCounter.exists()){
-            cartCounter.waitUntil(Condition.present, WAIT_SECONDS);
-            return cartCounter.getText();
-        }else {
-            throw new ElementNotFound(cartCounter.toString(), Condition.present);
-        }
+    public String getNumberOfItems(){
+        itemIcon.waitUntil(Condition.visible, WAIT_SECONDS);
+        return String.valueOf(items.size());
     }
 
     public String getItemId() {

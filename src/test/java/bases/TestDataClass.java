@@ -54,4 +54,11 @@ public class TestDataClass extends TestBase {
                 {new User("usefOne", "1"), "food"},
         };
     }
+
+    @DataProvider
+    public static Object[][] cart_and_item(){
+        return new Object[][]{
+                {"/12709786/stock-photo-wheat-field-in-a-rays.html", "12709786"}
+        };
+    }
 }

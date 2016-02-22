@@ -6,16 +6,21 @@ import ru.yandex.qatools.allure.annotations.Step;
 import static com.codeborne.selenide.Selenide.open;
 
 public class NavigationHelper extends DriverBasedHelper implements NavigationHelperInterface{
-    String urlHardCodded = "http://depositphotos.com";
+    String baseUrl;
 
     public NavigationHelper(ApplicationManager manager) {
         super(manager.getWebdriver());
     }
 
     @Override
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    @Override
     @Step
     public boolean openMainPage() {
-        open(urlHardCodded);
+        open(baseUrl);
         return pages.mainPageLoggedOut.ensurePageLoaded();
     }
 
@@ -30,7 +35,8 @@ public class NavigationHelper extends DriverBasedHelper implements NavigationHel
     }
 
     public boolean openCart() {
-        return false;
+        open(baseUrl + "/cart.html");
+        return pages.cartPage.ensurePageLoaded();
     }
 
     public boolean openProfilePage() {
@@ -62,18 +68,22 @@ public class NavigationHelper extends DriverBasedHelper implements NavigationHel
     @Override
     @Step
     public boolean openOurPlansAndPrices() {
+        open(baseUrl + "/subscribe.html");
+        return pages.anyPage.ensurePageLoaded();
+    }
+
+    @Override
+    @Step
+    public boolean openSignUpPage() {
+        pages.anyPage.ensurePageLoaded();
+        open("/signup.html");
         return false;
     }
 
     @Override
     @Step
-    public void openSignUpPage() {
+    public void openRelativeUrl(String url) {
+        open(baseUrl + url);
         pages.anyPage.ensurePageLoaded();
-        open("/signup.html");
-    }
-
-    @Override
-    public void openRelativeUrl(String itemUrl) {
-
     }
 }

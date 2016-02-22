@@ -12,7 +12,7 @@ public class CartHelper extends DriverBasedHelper implements CartHelperInterface
     @Override
     @Step
     public boolean isCartPageLoaded() {
-        return false;
+        return pages.cartPage.ensurePageLoaded();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CartHelper extends DriverBasedHelper implements CartHelperInterface
     @Override
     @Step("Get amount of items in cart")
     public String getItemsQuantity() {
-        return pages.cartPage.getCounterOfItems();
+        return pages.cartPage.getNumberOfItems();
     }
 
     @Override

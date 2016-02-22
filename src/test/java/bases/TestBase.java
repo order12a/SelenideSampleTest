@@ -10,6 +10,7 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -27,6 +28,8 @@ public class TestBase {
     private static Logger LOG = LogManager.getLogger(TestBase.class);
 //    final String LOG_FILE = "/main/java/resources/log4j.properties";
     protected static String baseUrl;
+    protected static String browser;
+    protected static WebDriver driver;
     public static ApplicationManagerInterface app;
 
     @BeforeClass
@@ -35,16 +38,17 @@ public class TestBase {
         System.setProperty("selenide.reopenBrowserOnFail", "true");
         EnvironmentConfig config = PropertyLoader.newInstance().populate(EnvironmentConfig.class);
         baseUrl = config.getBaseUrl();
-
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("window-size=1400,1200");
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
-        WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
-        app = new ApplicationManager();
-//      WebDriverRunner.setWebDriver(new FirefoxDriver());
+        browser = config.getBrowser();
+//
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("window-size=1600,1200");
+//        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+//
+//        WebDriverRunner.setWebDriver(new ChromeDriver(capabilities));
+        driver = WebdriverFactory.getWebdriver(browser);
+        app = new ApplicationManager(baseUrl);
     }
 
     @Rule

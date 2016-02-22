@@ -2,6 +2,7 @@ package logic.ready;
 
 import dp.logic.ViewItemHelperInterface;
 import model.Size;
+import ru.yandex.qatools.allure.annotations.Step;
 
 public class ViewItemHelper extends DriverBasedHelper implements ViewItemHelperInterface{
     public ViewItemHelper(ApplicationManager manager) {
@@ -14,8 +15,10 @@ public class ViewItemHelper extends DriverBasedHelper implements ViewItemHelperI
     }
 
     @Override
+    @Step
     public void addToCart() {
-
+        pages.itemPage.ensurePageLoaded();
+        pages.itemPage.addToCart();
     }
 
     @Override

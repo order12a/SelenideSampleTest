@@ -12,7 +12,7 @@ public interface NavigationHelperInterface {
     boolean openFavoritesPage();
     boolean openOurPlansAndPrices();
 
-    void openSignUpPage();
-
+    boolean openSignUpPage();
+    void setBaseUrl(String baseUrl);
     void openRelativeUrl(String itemUrl);
 }
